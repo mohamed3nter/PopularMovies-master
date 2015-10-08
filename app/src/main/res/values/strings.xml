@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Popular Movies</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_detail">DetailActivity</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <string name="pref_selection_default" translatable="false">Popular</string>
+    <string name="pref_selection_label">Select View Method</string>
+    <string name="pref_selection_label_popular">Most Popular</string>
+    <string name="pref_selection_label_highest">Highest Rated</string>
+    <string name="pref_selection_label_favorite">Favorite</string>
+
+    <string name="pref_selection_key" translatable="false">Selection</string>
+
+
+    <string name="pref_selection_popular" translatable="false">Popular</string>
+
+    <string name="pref_selection_highest" translatable="false">Highest</string>
+
+    <string name="pref_selection_favorite" translatable="false">Favorite</string>
+
+</resources>
