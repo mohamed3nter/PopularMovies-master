@@ -22,7 +22,6 @@ public class CustomAdaptor extends CursorAdapter {
     public CustomAdaptor(Context context, Cursor c, int flags) {
         super(context, c, flags);
     }
-
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
@@ -36,10 +35,8 @@ public class CustomAdaptor extends CursorAdapter {
         View view = LayoutInflater.from(context).inflate(R.layout.item, parent, false);
         ViewHolder viewHolder = new ViewHolder(view);
         view.setTag(viewHolder);
-        width=(int)context.getResources().getDimension(R.dimen.image_width);
         return view;
     }
-
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
         holder = (ViewHolder) view.getTag();
@@ -48,7 +45,6 @@ public class CustomAdaptor extends CursorAdapter {
                 .resize(img_width,(int)(img_width*1.5)).into(holder.PosterView);
         //holder.PosterView.setImageResource(R.drawable.img);
     }
-
     public static class ViewHolder {
         private ImageView PosterView;
 
