@@ -15,9 +15,9 @@
             android:id="@+id/Movie_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="35dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="35dp"
+            android:layout_marginBottom="35sp"
+            android:layout_marginLeft="20sp"
+            android:layout_marginTop="35sp"
             android:text="chappie"
             android:textColor="#FFFFF0"
             android:textSize="70sp" />
@@ -71,13 +71,10 @@
                 android:id="@+id/favorite"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:text="NON FAVORITE"
-                android:textSize="1dp"
                 android:background="@drawable/nonfavorite"
                 android:layout_gravity="center"/>
         </LinearLayout>
     </RelativeLayout>
-
     <TextView
         android:id="@+id/review"
         android:layout_width="wrap_content"
@@ -86,7 +83,6 @@
         android:text="When the old-old-old-fashioned vampire Vlad arrives at the hotel for an impromptu family get-together, Hotel Transylvania is in for a collision of supernatural old-school and modern day cool."
         android:textColor="#000000"
         android:textSize="20sp" />
-
     <View
         android:layout_width="fill_parent"
         android:layout_height="2dp"

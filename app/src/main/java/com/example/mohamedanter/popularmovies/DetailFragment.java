@@ -57,6 +57,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
     private ArrayList<Review> ReviewData;
     private ArrayList<Trailer> TrailerData;
     private DetailAdaptor detailAdaptor;
+    private boolean isFavorite=false;
     public DetailFragment() {
         setHasOptionsMenu(true);
     }
@@ -179,14 +180,13 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
             Cursor CheckIfFavorite = getActivity().getContentResolver().query(mfavUriWithId, null, null, null, null);
             if(CheckIfFavorite != null && CheckIfFavorite.getCount() > 0){
                 fav_button.setBackgroundResource(R.drawable.favorite);
-                fav_button.setText("FAVORITE MOVIE");
+                isFavorite=true;
             }
             fav_button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(fav_button.getText().toString().equals("NON FAVORITE")){
+                    if(!isFavorite){
                         fav_button.setBackgroundResource(R.drawable.favorite);
-                        fav_button.setText("FAVORITE MOVIE");
                         ContentValues MovieValues =new ContentValues();
                         MovieValues.put(MovieContract.COLUMN_MOVIE_ID, SelectedItem.MOVIE_ID);
                         MovieValues.put(MovieContract.COLUMN_TITLE, SelectedItem.TITLE);
@@ -200,12 +200,13 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
                         MovieValues.put(MovieContract.COLUMN_REVIEW_JSON_STR, SelectedItem.REVIEW_JSON_STR);
                         getActivity().getContentResolver().insert(MovieContract.FavoriteMoviesEntry.CONTENT_URI, MovieValues);
                         Toast.makeText(getActivity(), "Movie Added To Favorite Movies", Toast.LENGTH_LONG).show();
+                        isFavorite=true;
                     }
                     else{
                         fav_button.setBackgroundResource(R.drawable.nonfavorite);
-                        fav_button.setText("NON FAVORITE");
                         getActivity().getContentResolver().delete(mfavUriWithId, null, null);
                         Toast.makeText(getActivity(), "Removed From Favorites", Toast.LENGTH_LONG).show();
+                        isFavorite=false;
                     }
                 }
             });

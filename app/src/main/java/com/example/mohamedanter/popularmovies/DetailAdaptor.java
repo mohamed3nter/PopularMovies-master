@@ -101,13 +101,10 @@ public class DetailAdaptor extends BaseAdapter {
         }
         return convertView;
     }
-
     private class ViewHolder {
         TextView trailername;
         TextView header;
         TextView content;
         TextView author;
-
     }
-
 }

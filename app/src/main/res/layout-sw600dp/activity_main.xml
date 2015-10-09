@@ -5,7 +5,7 @@
     android:baselineAligned="false"
     android:divider="?android:attr/dividerHorizontal"
     android:orientation="horizontal"
-    tools:context="com.example.android.sunshine.app.MainActivity">
+    tools:context="com.example.mohamedanter.popularmovies.MainActivity">
     <fragment
         android:id="@+id/main_container"
         android:name="com.example.mohamedanter.popularmovies.PlaceholderFragment"
