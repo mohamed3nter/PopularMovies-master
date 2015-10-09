@@ -2,6 +2,7 @@ package com.example.mohamedanter.popularmovies;
 
 import android.content.ActivityNotFoundException;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
@@ -13,10 +14,12 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -81,7 +84,8 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
         t4 = (TextView) headerView.findViewById(R.id.rate);
         t5 = (TextView) headerView.findViewById(R.id.review);
         fav_button=(Button)headerView.findViewById(R.id.favorite);
-
+        TrailerData=new ArrayList<Trailer>();
+        ReviewData=new ArrayList<Review>();
         detailList.addHeaderView(headerView);
         detailAdaptor=new DetailAdaptor(getActivity());
         detailList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -157,21 +161,25 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
                     Content_Value.getAsString(MovieContract.COLUMN_Trailer_JSON_STR),
                     Content_Value.getAsString(MovieContract.COLUMN_REVIEW_JSON_STR));
             try {
+                if (SelectedItem.REVIEW_JSON_STR !=null)
                 ReviewData = getReviewDataFromJson(SelectedItem.REVIEW_JSON_STR);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
             try {
-                TrailerData = getTrailerDataFromJson(SelectedItem.Trailer_JSON_STR);
+                if (SelectedItem.Trailer_JSON_STR !=null)
+                    TrailerData = getTrailerDataFromJson(SelectedItem.Trailer_JSON_STR);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            detailAdaptor.addHeader("Trailers");
+            if (TrailerData.size()>0)
+                detailAdaptor.addHeader("Trailers");
             if (TrailerData != null) {
                 for (Trailer trailer : TrailerData)
                     detailAdaptor.addItem(trailer);
             }
-            detailAdaptor.addHeader("Reviews");
+            if(ReviewData.size()>0)
+                detailAdaptor.addHeader("Reviews");
             if (ReviewData != null) {
                 for (Review review : ReviewData)
                     detailAdaptor.addItem(review);
@@ -211,12 +219,17 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
                 }
             });
             t1.setText(SelectedItem.ORIGINAL_TITLE);
-            Picasso.with(getActivity()).load("http://image.tmdb.org/t/p/w185//" + SelectedItem.POSTER_PATH).into(img);
-            String Time[] = SelectedItem.RELEASE_DATE.split("-");
-            t2.setText((CharSequence) Time[0]);
+            Picasso.with(getActivity()).load("http://image.tmdb.org/t/p/w185//" + SelectedItem.POSTER_PATH)
+                    .resize(MainActivity.img_width,(int)(MainActivity.img_width*1.5)).into(img);
+            if(SelectedItem.RELEASE_DATE!=null) {
+                String Time[] = SelectedItem.RELEASE_DATE.split("-");
+                t2.setText((CharSequence) Time[0]);
+            }
             t3.setText("120min");
-            t4.setText(SelectedItem.VOTE_AVARAGE + "/10");
-            t5.setText(SelectedItem.OVERVIEW);
+            if (SelectedItem.VOTE_AVARAGE!=null)
+                t4.setText(SelectedItem.VOTE_AVARAGE + "/10");
+            if (SelectedItem.OVERVIEW!=null)
+                t5.setText(SelectedItem.OVERVIEW);
             detailList.setAdapter(detailAdaptor);
         }
     }

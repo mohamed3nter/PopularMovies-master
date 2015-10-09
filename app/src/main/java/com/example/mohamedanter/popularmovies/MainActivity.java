@@ -1,18 +1,34 @@
 package com.example.mohamedanter.popularmovies;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
+import android.view.Display;
+import android.view.WindowManager;
+
 public class MainActivity extends ActionBarActivity implements PlaceholderFragment.Callback {
+    public static int width,height,img_width;
     private static String DETAIL_TAG = "D_Tag";
     private boolean mTwoPan;
     private String mSort;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (savedInstanceState==null)
+        {
+            WindowManager wm = (WindowManager) this.getSystemService(Context.WINDOW_SERVICE);
+            Display display = wm.getDefaultDisplay();
+            width = display.getWidth();
+            height = display.getHeight();
+            if (width<600)
+                img_width=width/2;
+            else
+                img_width=(width/2)/2;
+        }
         setContentView(R.layout.activity_main);
         if (findViewById(R.id.detail_container) != null) {
             mTwoPan = true;

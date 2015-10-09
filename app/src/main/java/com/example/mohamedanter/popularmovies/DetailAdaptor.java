@@ -47,12 +47,10 @@ public class DetailAdaptor extends BaseAdapter {
         else
             return VIEW_TYPE_HEADER;
     }
-
     @Override
     public int getViewTypeCount() {
         return VIEW_TYPE_COUNT;
     }
-
     @Override
     public long getItemId(int position) {
         return position;

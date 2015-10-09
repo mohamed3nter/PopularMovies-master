@@ -144,7 +144,8 @@ public class FetchMovies extends AsyncTask<String, Void, Void> {
             }
             forecastJsonStr = buffer.toString();
             Log.d(LOG_TAG, "////////////////////////////////////////////////// Fetch Movies Complete. ");
-            Data = getMoviesDataFromJson(forecastJsonStr);
+            if (forecastJsonStr!=null)
+                Data = getMoviesDataFromJson(forecastJsonStr);
         } catch (IOException e) {
             Log.e(LOG_TAG, "Error ", e);
         } catch (JSONException e) {

@@ -18,20 +18,11 @@ import com.squareup.picasso.Picasso;
  */
 public class CustomAdaptor extends CursorAdapter {
     ViewHolder holder = null;
-    int width,height,img_width;
     public CustomAdaptor(Context context, Cursor c, int flags) {
         super(context, c, flags);
     }
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
-        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        Display display = wm.getDefaultDisplay();
-        width = display.getWidth();
-        height = display.getHeight();
-        if (width<600)
-            img_width=width/2;
-        else
-            img_width=(width/2)/2;
         View view = LayoutInflater.from(context).inflate(R.layout.item, parent, false);
         ViewHolder viewHolder = new ViewHolder(view);
         view.setTag(viewHolder);
@@ -40,14 +31,11 @@ public class CustomAdaptor extends CursorAdapter {
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
         holder = (ViewHolder) view.getTag();
-        String x = cursor.getString(PlaceholderFragment.COL_POSTER_PATH);
         Picasso.with(context).load("http://image.tmdb.org/t/p/w185" + cursor.getString(PlaceholderFragment.COL_POSTER_PATH))
-                .resize(img_width,(int)(img_width*1.5)).into(holder.PosterView);
-        //holder.PosterView.setImageResource(R.drawable.img);
+                .resize(MainActivity.img_width,(int)(MainActivity.img_width*1.5)).into(holder.PosterView);
     }
     public static class ViewHolder {
         private ImageView PosterView;
-
         public ViewHolder(View view) {
             PosterView = (ImageView) view.findViewById(R.id.image);
         }

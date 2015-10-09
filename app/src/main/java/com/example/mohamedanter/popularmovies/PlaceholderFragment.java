@@ -75,7 +75,8 @@ public class PlaceholderFragment extends Fragment implements LoaderManager.Loade
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        UpdateMovie();
+        if (savedInstanceState==null)
+            UpdateMovie();
         setHasOptionsMenu(true);
     }
     private void UpdateMovie() {
