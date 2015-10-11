@@ -29,6 +29,7 @@ public class MainActivity extends ActionBarActivity implements PlaceholderFragme
             else
                 img_width=(width/2)/2;
         }
+
         setContentView(R.layout.activity_main);
         if (findViewById(R.id.detail_container) != null) {
             mTwoPan = true;
@@ -40,6 +41,7 @@ public class MainActivity extends ActionBarActivity implements PlaceholderFragme
         } else {
             mTwoPan = false;
         }
+
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         mSort = prefs.getString(getString(R.string.pref_selection_key),
                 getString(R.string.pref_selection_default));

@@ -16,6 +16,8 @@ import android.support.v4.content.Loader;
 import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,6 +63,8 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
     private ArrayList<Trailer> TrailerData;
     private DetailAdaptor detailAdaptor;
     private boolean isFavorite=false;
+    private static final String SHARE_HASHTAG = " #PopularMoviesApp";
+
     public DetailFragment() {
         setHasOptionsMenu(true);
     }
@@ -106,15 +110,39 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
         return rootView;
     }
     @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        inflater.inflate(R.menu.menu_detail, menu);
+    }
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
-        if (id == R.id.action_settings) {
-            startActivity(new Intent(getActivity(), SettingsActivity.class));
+        if (id == R.id.action_share) {
+            String TrailerLink=null;
+            if (TrailerData.size()>0)
+            {
+                TrailerLink="http://www.youtube.com/watch?v="+TrailerData.get(0).TrailerKey;
+                Intent ShareIntent =createShareIntent(TrailerLink);
+                startActivity(ShareIntent);
+            }
+            else
+            {
+                Toast.makeText(getActivity(), "This Movie don't have any Trailer", Toast.LENGTH_LONG).show();
+            }
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
+    private Intent createShareIntent(String TrailerLink) {
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+        shareIntent.setType("text/plain");
+        shareIntent.putExtra(Intent.EXTRA_TEXT,TrailerLink+SHARE_HASHTAG);
+        return shareIntent;
+    }
+
+
+
     void ChangeMovies() {
 
         Uri uri = mUri;

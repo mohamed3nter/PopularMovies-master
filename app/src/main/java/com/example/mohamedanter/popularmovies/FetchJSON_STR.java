@@ -10,7 +10,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-
 /**
  * Created by Mohamed Anter on 10/2/2015.
  */
@@ -27,7 +26,6 @@ public class FetchJSON_STR extends AsyncTask<Void, Void, Void> {
         Review = new String[Data.size()];
         this.execute();
     }
-
     @Override
     protected Void doInBackground(Void... params) {
         HttpURLConnection urlConnection = null;
